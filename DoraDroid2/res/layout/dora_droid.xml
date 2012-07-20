@@ -21,12 +21,19 @@
 		android:text="back"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"/>
-	<Button android:id="@+id/forward_button"
-		android:text="forward"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"/>  
+
+   <Button
+       android:id="@+id/forward_button"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:text="forward" />
+  
 	<Button android:id="@+id/stop_button"
 		android:text="stop"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>  
+	<Button android:id="@+id/gps_button"
+		android:text="gps"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"/>  
 </LinearLayout>

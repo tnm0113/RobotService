@@ -25,6 +25,8 @@ import java.util.Locale;
 
 import org.robotservices.v02.IAsyncCallBack;
 import org.robotservices.v02.profile.common.Ret_value;
+
+import GPS.GPSTracker;
 import com.fujitsu.rsi.helper.ContentsProfileHelper;
 
 //import com.lego.minddroid.Lama;
@@ -67,6 +69,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DoraDroid extends Activity implements BTConnectable {
+	// GPSTracker class
+	GPSTracker gps;
 
 	private static final int REQUEST_CONNECT_DEVICE = 1000;
 	private static final int REQUEST_ENABLE_BT = 2000;
@@ -238,6 +242,33 @@ public class DoraDroid extends Activity implements BTConnectable {
 		 button.setOnClickListener(new View.OnClickListener() {
 		 	public void onClick(View arg0) {updateMotorControl(-20,-20);}
 		 });
+		 button = (Button) findViewById(R.id.gps_button);
+		 button.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View arg0) {
+				requestGPS();
+			}
+
+			private void requestGPS() {
+				// create class object
+		        gps = new GPSTracker(DoraDroid.this);
+
+				// check if GPS enabled		
+		        if(gps.canGetLocation()){
+		        	
+		        	double latitude = gps.getLatitude();
+		        	double longitude = gps.getLongitude();
+		        	
+		        	// \n is for new line
+		        	Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();	
+		        }else{
+		        	// can't get location
+		        	// GPS or Network is not enabled
+		        	// Ask user to enable GPS/network in settings
+		        	gps.showSettingsAlert();
+		        }
+
+			}
+		});
 		
 		reusableToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
     }
